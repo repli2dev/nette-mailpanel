@@ -115,7 +115,7 @@
 					<iframe class="mail-body" id="mail-body-{$iterator->key()}"></iframe>
 					<script type="text/javascript">
 						
-						document.getElementById('mail-body-{$iterator->key()}').contentWindow.document.write('{if $fixPage}{!$header}{/if}{!$mailContent}{if $fixPage}{!$footer}{/if}');
+						document.getElementById('mail-body-{$iterator->key()}').contentWindow.document.write('{if $fixPage}{$header|noescape}{/if}{$mailContent|noescape}{if $fixPage}{$footer|noescape}{/if}');
 					</script>
 				</td>
 			</tr>
