@@ -7,30 +7,31 @@
  * @licence New BSD
  *}
 <style>
-	.nette-panel[id~=MailPanel] {
+	.nette-panel[id~=MailPanel],
+	.tracy-panel[id~=MailPanel]{
 		text-align: left;
 		overflow: auto;
 		max-height: 600px;
 	}
-	.nette-panel .mail-container {
+	.mail-panel-container {
 		margin-bottom: 10px !important;
 		width: 540px;
 	}
-	.nette-panel .mail-body {
+	.mail-panel-body {
 		border: 1px solid #A7A7A7 !important;
 		padding: 10px !important;
 		background: #FFF !important;
 		width: 96%;
 		height: auto;
 	}
-	.nette-panel a.delete-link {
+	.mail-panel-container a.delete-link {
 		float: right;
 	}
-	.nette-panel a.delete-all-link {
+	a.mail-panel-delete-all-link {
 		float: right;
 		margin: 15px 5px 0 0 !important;
 	}
-	.nette-panel a.visibility-toggle-link {
+	.mail-panel-container a.visibility-toggle-link {
 		float: right;
 		padding-left: 5px;
 		padding-right: 5px;
@@ -38,7 +39,7 @@
 	}
 </style>
 
-<a n:if="count($messages)" href="{$baseUrl}?mail-panel=delete" class="delete-all-link">Delete all</a>
+<a n:if="count($messages)" href="{$baseUrl}?mail-panel=delete" class="mail-panel-delete-all-link">Delete all</a>
 <h1>Sent emails</h1>
 {var $allMessages = count($messages)}
 {if count($messages) > 0}
@@ -46,7 +47,7 @@
 	{* Get newest at top *}
 	{foreach $messages as $index => $mail}
 		{* The message itself *}
-		<table class="mail-container">
+		<table class="mail-panel-container">
 			<tr>
 				<th style="width: 30%"><strong>Subject</strong></th>
 				<td>
@@ -106,8 +107,8 @@
 					<tr><th colspan="2">HTML e-mail</th></tr>
 				{/if}
 				<tr>
-					<td colspan="2">
-						<iframe class="mail-body" id="mail-body-{$hash}-{$index}"></iframe>
+					<td colspan="2" class="mail-panel-body-outter">
+						<iframe class="mail-panel-body" id="mail-body-{$hash}-{$index}"></iframe>
 						<script type="text/javascript">
 							var mailContent = '<base target="_parent" />' + {$mailContent};
 							document.getElementById('mail-body-' + {$hash} + '-{$index}').contentWindow.document.write(mailContent);

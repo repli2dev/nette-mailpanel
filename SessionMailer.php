@@ -42,7 +42,10 @@ class SessionMailer implements IMailer {
 	 * @param Message $mail
 	 */
 	public function send(Message $mail) {
-		$mails = $this->sessionSection->sentMessages ?: array();
+		$mails = array();
+		if($this->sessionSection->offsetExists('sentMessages')) {
+			$mails = $this->sessionSection->sentMessages;
+		}
 
 		if (count($mails) === $this->limit) {
 			array_pop($mails);
@@ -60,13 +63,19 @@ class SessionMailer implements IMailer {
 
 
 	public function getMessages($limit = NULL) {
-		$messages = $this->sessionSection->sentMessages ?: array();
-		return array_slice($messages, 0, $limit);
+		if($this->sessionSection->offsetExists('sentMessages')) {
+			$messages = $this->sessionSection->sentMessages ?: array();
+			return array_slice($messages, 0, $limit);
+		}
+		return array();
 	}
 
 
 	public function getMessageCount() {
-		return count($this->sessionSection->sentMessages);
+		if($this->sessionSection->offsetExists('sentMessages')) {
+			return count($this->sessionSection->sentMessages);
+		}
+		return 0;
 	}
 
 
@@ -76,7 +85,10 @@ class SessionMailer implements IMailer {
 
 
 	public function deleteByIndex($index) {
-		$messages = $this->sessionSection->sentMessages ?: array();
+		$messages = array();
+		if($this->sessionSection->offsetExists('sentMessages')) {
+			$messages = $this->sessionSection->sentMessages;
+		}
 		array_splice($messages, (int) $index, 1);
 		$this->sessionSection->sentMessages = $messages;
 	}
