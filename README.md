@@ -6,8 +6,6 @@ GIT: https://github.com/nextras/mail-panel
 MailPanel
 =========
 
-*This panel is deprecated in favor of Nette Extras Mail Panel (nextras  / mail-panel)
-
 Panel for Nette Debug panel.
 Instead of sending, all e-mails are stored into session from which they can be viewed in debug bar.
 Supports plaintexts and HTML e-mail, multiple recipients etc.
